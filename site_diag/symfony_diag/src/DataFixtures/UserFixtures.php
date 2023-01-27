@@ -22,10 +22,10 @@ class UserFixtures extends Fixture
         $manager->persist($user);
 
         $admin = new User();
-        $admin->setEmail('demo@gmail.com');
+        $admin->setEmail('demo2@gmail.com');
         $password = $this->$hasher->hashPassword($admin, 'demo');
         $admin->setPassword($password);
-        $admin->setRoles(['ROLE_USER']);
+        $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
 
 

@@ -23,7 +23,22 @@ security:
 
             logout:
                 path: app_logout
+            
+            # login_throttling: null
 
+            # # configure the maximum login attempts
+            # login_throttling:
+            #     max_attempts: 3          # per minute ...
+            #     # interval: '15 minutes' # ... or in a custom period
+
+            # # use a custom rate limiter via its service ID
+            # login_throttling:
+            #     limiter: app.my_login_rate_limiter
+        secured_area:
+            # ...
+            form_login:
+                # ...
+                enable_csrf: true
     role_hierarchy:
         ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
             # activate different ways to authenticate
