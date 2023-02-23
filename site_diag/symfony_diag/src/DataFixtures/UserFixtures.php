@@ -8,6 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class UserFixtures extends Fixture
 {
+
+    private $hasher;
+
     public function __construct(UserPasswordHasherInterface $hasher)
     {
         $this->hasher = $hasher;
@@ -16,14 +19,14 @@ class UserFixtures extends Fixture
     {
         $user = new User();
         $user->setEmail('demo@gmail.com');
-        $password = $this->$hasher->hashPassword($user, 'demo');
+        $password = $this->hasher->hashPassword($user, 'demo');
         $user->setPassword($password);
         $user->setRoles(['ROLE_USER']);
         $manager->persist($user);
 
         $admin = new User();
         $admin->setEmail('demo2@gmail.com');
-        $password = $this->$hasher->hashPassword($admin, 'demo');
+        $password = $this->hasher->hashPassword($admin, 'demo');
         $admin->setPassword($password);
         $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);

@@ -7,6 +7,8 @@ use App\Entity\Actuality;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ActualityRepository;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 #[ORM\Entity(repositoryClass: ActualityRepository::class)]
 class Actuality
@@ -19,6 +21,7 @@ class Actuality
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $Description = null;
 
@@ -27,6 +30,21 @@ class Actuality
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?DateTimeInterface $DateAj = null;
+
+    #[ORM\Column(type: 'string')]
+    private $brochureFilename;
+
+    public function getBrochureFilename()
+    {
+        return $this->brochureFilename;
+    }
+
+    public function setBrochureFilename($brochureFilename)
+    {
+        $this->brochureFilename = $brochureFilename;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {

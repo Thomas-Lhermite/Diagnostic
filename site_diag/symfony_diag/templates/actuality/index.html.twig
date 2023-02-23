@@ -24,6 +24,7 @@
                 <td>{{ actuality.Description }}</td>
                 <td>{{ actuality.Importance }}</td>
                 <td>{{ actuality.DateAj ? actuality.DateAj|date('Y-m-d H:i:s') : '' }}</td>
+                <td><img src='./uploads/{{actuality.brochureFilename}}'></td>
                 <td>
                     <a href="{{ path('app_actuality_show', {'id': actuality.id}) }}">show</a>
                     <a href="{{ path('app_actuality_edit', {'id': actuality.id}) }}">edit</a>
