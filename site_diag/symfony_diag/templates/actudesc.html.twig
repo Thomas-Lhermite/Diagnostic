@@ -1,0 +1,97 @@
+{% block body %}
+<link href="./css/login-style.css" rel="stylesheet">
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+	<form action="{{ path('app_login') }}"
+                        method="post">
+    <div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Se connecter</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">S'inscrire</label>
+		<div class="login-form">
+			<div class="sign-in-htm">
+				<div class="group">
+					<label class="label" for="username">
+                                <span class="label-text">
+                                    Nom d'utilisateur
+                                </span>
+                            </label>
+                            <input
+                                class="input input-bordered"
+                                type="text"
+                                id="username"
+                                name="_username"
+                                value="{{ last_username }}"
+                            />
+				</div>
+				<div class="group">
+					<label class="label" for="password">
+                                <span class="label-text"> Mot de passe </span>
+                            </label>
+                            <input
+                                class="input input-bordered"
+                                type="password"
+                                name="_password"
+                                id="password"
+                            />
+				</div>
+				<div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Me garder connecter</label>
+				</div>
+				<div class="group">
+					<input
+                            class="input"
+                            type="hidden"
+                            name="_csrf_token"
+                            value="{{ csrf_token('authenticate') }}"
+                        />
+						<button class="btn" type="submit">
+                                Se connecter
+                            </button>
+				</div>
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<a href="#forgot">Mot de passe oublié ?</a>
+				</div>
+			</div>
+			{% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+	<h1>Register</h1>
+
+{% set registrationForm = form('App\\Form\\RegistrationFormType') %}
+
+{{ form_start(registrationForm) }}
+    <div class="group">
+        {{ form_widget(registrationForm.email, { 'attr': {'class': 'input', 'id': 'user'} }) }}
+        {{ form_label(registrationForm.email, 'Email', { 'label_attr': {'class': 'label'} }) }}
+    </div>
+    <div class="group">
+        {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'input', 'id': 'pass', 'data-type': 'password'} }) }}
+        {{ form_label(registrationForm.plainPassword, 'Mot de passe', { 'label_attr': {'class': 'label'} }) }}
+    </div>
+    <div class="group">
+        {{ form_widget(registrationForm.passwordRepeat, { 'attr': {'class': 'input', 'id': 'pass2', 'data-type': 'password'} }) }}
+    {{ form_label(registrationForm.passwordRepeat, 'Ressaisir mot de passe', { 'label_attr': {'class': 'label'} }) }}
+</div>
+<div class="group">
+    {{ form_widget(registrationForm.address, { 'attr': {'class': 'input', 'id': 'address'} }) }}
+    {{ form_label(registrationForm.address, 'Adresse', { 'label_attr': {'class': 'label'} }) }}
+</div>
+<div class="group">
+    {{ form_widget(registrationForm.agreeTerms, { 'attr': {'class': 'input', 'id': 'agreeTerms'} }) }}
+    {{ form_label(registrationForm.agreeTerms, 'Agree to terms', { 'label_attr': {'class': 'label'} }) }}
+</div>
+<div class="group">
+    <button type="submit" class="button">S'inscrire</button>
+</div>
+{{ form_end(registrationForm) }}
+<div class="hr"></div>
+<div class="foot-lnk">
+    <a href="#tab-1">Déjà membre ?</a>
+</div>
+</div>
+
+{% endblock %}
